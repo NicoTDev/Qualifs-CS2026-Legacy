@@ -27,7 +27,7 @@ public class Metronome {
 
     public Metronome() {
         bpm = 80;
-        estEnCours = true;
+        estEnCours = false;
         timer = new Timer((60000/bpm), (ActionEvent e) -> {
                 mChannels[10].noteOn(60, 50);
                 mChannels[10].noteOff(60);
@@ -44,6 +44,11 @@ public class Metronome {
             mChannels = midiSynth.getChannels();
 
             mChannels[10].programChange(instr[116].getPatch().getProgram());
+
+
+            // On met du tape sur le problème
+            timer.stop();
+
 
         } catch (MidiUnavailableException e) {
         }
@@ -62,7 +67,9 @@ public class Metronome {
 
     void setBpm(int nouveauBpm) {
         this.bpm = nouveauBpm;
-        timer.setDelay(60000/bpm);
+
+        //
+        timer.setDelay(60000/(bpm+1));
     }
 
 }

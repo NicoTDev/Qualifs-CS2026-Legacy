@@ -1,0 +1,3 @@
+- Référence erroné vers composition -> Ajout d'une variable Composition par défaut
+
+- Erreur de division par 0 pour les bpm -> Ajout d'une valeur de 1 par défaut

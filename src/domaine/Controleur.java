@@ -56,6 +56,7 @@ public class Controleur implements Observable {
 
     public Controleur() {
         instrument = new Instrument(this);
+        composition = new Composition();
         observateurs = new LinkedList<Observateur>();
         modeEnCours = Mode.SELECTION;
         affichageNom = false;
@@ -330,11 +331,34 @@ public class Controleur implements Observable {
     }
 
     public void sauvegarderInstrument(File fichier) {
-        // todo
+        Instrument instrument1 = this.getInstrument();
+        String filePath = "object_data.ser";
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fichier.getAbsolutePath()))) {
+            oos.writeObject(instrument1);
+            System.out.println("Object successfully saved to " + filePath);
+        } catch (IOException e) {
+            System.err.println("Error saving object to file: " + e.getMessage());
+        }
+
+
     }
 
     public void chargerInstrument(File fichier) {
-        // todo
+
+        try (FileInputStream fis = new FileInputStream(fichier.getAbsolutePath());
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+
+            // Read the object from the file and cast it back to MyClass
+
+            this.instrument = (Instrument) ois.readObject();
+
+            System.out.println("Object loaded successfully:" + this.instrument.getNomInstrument());
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error loading object: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public void renommerInstrument(String nouveauNom) {

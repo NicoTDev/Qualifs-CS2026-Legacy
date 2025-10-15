@@ -71,6 +71,9 @@ public class ZoneJeuListener extends MouseAdapter {
             case JEUPRATIQUE:
                 interfacePrincipale.controleur.jouerTouche(pointSouris, dimensionZoneJeu);
                 break;
+
+            case AJOUTTOUCHE,SELECTION:
+                break;
             default:
                 throw new RuntimeException("should never happen");
         }
